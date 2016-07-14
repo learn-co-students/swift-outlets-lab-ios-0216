@@ -18,23 +18,65 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
     }
+    
+    @IBAction func redButtonTapped(_ sender: AnyObject) {
+        
+        simonSaysGame.guessRed()
+            print("red has been tapped")
+    }
+    @IBAction func greenButtonTapped(_ sender: AnyObject) {
+        simonSaysGame.guessGreen()
+        print("green has been tapped")
+
+    }
+    @IBAction func yellowButtonTapped(_ sender: AnyObject) {
+        
+        simonSaysGame.guessYellow()
+        print("yellow has been tapped")
+
+    }
+    @IBAction func blueButtonTapped(_ sender: AnyObject) {
+        simonSaysGame.guessBlue()
+        print("blue has been tapped")
+
+    }
+    
+    @IBAction func done(_ sender: AnyObject) {
+        
+        switch simonSaysGame.wonGame() {
+        case true:
+            winLabel.isHidden = false
+            winLabel.text = "You won !"
+        default:
+            winLabel.isHidden = false
+            winLabel.text = "You lost !"
+        }
+    }
+    
+    
+    
 }
 
 // MARK: - SimonSays Game Methods
 extension ViewController {
     
-    @IBAction func startGameTapped(sender: UIButton) {
-        UIView.transitionWithView(startGameButton, duration: 0.9, options: .TransitionFlipFromBottom , animations: {
-            self.startGameButton.hidden = true
+    @IBAction func startGameTapped(_ sender: UIButton) {
+        UIView.transition(with: startGameButton, duration: 0.9, options: .transitionFlipFromBottom , animations: {
+            self.startGameButton.isHidden = true
             }, completion: nil)
         
         displayTheColors()
-    }
+        
+            }
+    
     
     private func displayTheColors() {
-        self.view.userInteractionEnabled = false
-        UIView.transitionWithView(displayColorView, duration: 1.5, options: .TransitionCurlUp, animations: {
+        self.view.isUserInteractionEnabled = false
+        UIView.transition(with: displayColorView, duration: 1.5, options: .transitionCurlUp, animations: {
             self.displayColorView.backgroundColor = self.simonSaysGame.nextColor()?.colorToDisplay
             self.displayColorView.alpha = 0.0
             self.displayColorView.alpha = 1.0
@@ -42,9 +84,14 @@ extension ViewController {
                 if !self.simonSaysGame.sequenceFinished() {
                     self.displayTheColors()
                 } else {
-                    self.view.userInteractionEnabled = true
+                    self.view.isUserInteractionEnabled = true
                     print("Pattern to match: \(self.simonSaysGame.patternToMatch)")
-                }
+                    
+                                    }
         })
     }
+    
+    
+    
+    
 }
