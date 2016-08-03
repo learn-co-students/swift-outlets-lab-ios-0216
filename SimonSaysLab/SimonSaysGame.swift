@@ -79,6 +79,7 @@ extension SimonSays {
     }
 
     func sequenceFinished() -> Bool {
+        
         return colorToDisplay > patternToMatch.count
     }
 
